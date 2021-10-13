@@ -27,13 +27,43 @@ def scrape():
     featured_image_url = featured_image[0].find("img")["src"]
     tables = pd.read_html(facts_url)
     df = tables[0]
-    html_table = df.to_html()
+    html_table = df.to_html(index=False)
+    image_url = 'https://marshemispheres.com/'
+    browser.visit(image_url)
+    html = browser.html
+    soup = BeautifulSoup(html, 'html.parser')
+    images = soup.find_all('div', class_="description")
+
+    image_urls=[]
+
+    for image in images:
+        link = image.find('a')
+        href = link['href']
+        print('https://marshemispheres.com/'+ href)
+        image_urls.append('https://marshemispheres.com/'+ href)
+
+    
+    hemisphere_image_urls = []
+    for url in image_urls:
+
+        browser.visit(url)
+        html = browser.html
+        soup = BeautifulSoup(html, 'html.parser')
+        image = soup.find('img', class_ = 'wide-image')
+        image_url= 'https://marshemispheres.com/'+image['src']
+        title_tag = soup.find('h2', class_='title')
+        title= title_tag.text
+        hemisphere_image_urls.append({"title": title,
+        'img_url': image_url})
+    
+
     
     mars_collection = {
         'news_title' : news_title,
         'news_p' : news_p,
-        'featured_image)url': featured_image_url,
-        'html_table': html_table
+        'featured_image_url': featured_image_url,
+        'html_table': html_table,
+        'hemisphere_image_urls' : hemisphere_image_urls
     }   
 
     browser.quit()

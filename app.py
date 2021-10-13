@@ -9,13 +9,13 @@ app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_db"
 mongo = PyMongo(app)
 
 # Or set inline
-# mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_")
+# mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_db")
 
 
 @app.route("/")
 def index():
     mars_collection = mongo.db.mars_collection.find_one()
-    return render_template("index.html", mars_collection=mars_collection)
+    return render_template("index.html", mars=mars_collection)
 
 
 @app.route("/scrape")
