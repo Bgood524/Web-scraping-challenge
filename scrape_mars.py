@@ -7,6 +7,8 @@ def scrape():
     
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=False)
+
+
     url = 'https://redplanetscience.com/'
     browser.visit(url)
     browser.is_element_present_by_css('div.content_title', wait_time=3)
@@ -27,15 +29,17 @@ def scrape():
     df = tables[0]
     html_table = df.to_html()
     
-
-
-    
-    return {
+    mars_collection = {
         'news_title' : news_title,
         'news_p' : news_p,
         'featured_image)url': featured_image_url,
         'html_table': html_table
     }   
+
+    browser.quit()
+
+    
+    return mars_collection
 
 
 
