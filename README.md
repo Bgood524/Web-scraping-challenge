@@ -21,7 +21,8 @@ Steps:
 * Saved both the image url string for the full resolution hemisphere image, and the Hemisphere title containing the hemisphere name. Used a Python dictionary to store the data using the keys `img_url` and `title`.
 
 * Appended the dictionary with the image url string and the hemisphere title to a list. This list  contain one dictionary for each hemisphere.
-##MongoDB and Flask Application
+
+## MongoDB and Flask Application
 
 Used MongoDB with Flask templating to create a new HTML page that displays all of the information that was scraped from the URLs above.
 
